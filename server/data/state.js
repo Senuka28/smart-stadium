@@ -46,10 +46,31 @@ let kpis = {
 
 let incidents = [];
 
+const incidentTemplates = {
+    critical: [
+    { type: "medical", title: "Medical incident reported" },
+    { type: "security", title: "Security incident reported" },
+    { type: "queue", title: "Gate predicted to exceed safe queue length in 10 min" },
+    { type: "fire", title: "Fire alarm triggered" },
+  ],
+  warning: [
+    { type: "obstruction", title: "Obstruction reported" },
+    { type: "crowd", title: "Concourse approaching crowd limit" },
+    { type: "inventory", title: "Low inventory alert" },
+    { type: "equipment", title: "Gate scanner malfunction" },
+  ],
+  info: [
+    { type: "cleaning", title: "Restroom cleaning in progress" },
+    { type: "restock", title: "Concession stand restocked" },
+    { type: "shift", title: "Staff shift change completed" },
+    { type: "system", title: "System health check passed" },
+  ],
+};
+
 let weather = {
     temperatureF: 77,
     precipitation: 0,
     storm_alert: "none"
 };
 
-module.exports = {zones, kpis, incidents, weather};
+module.exports = {zones, kpis, incidents, weather, };
