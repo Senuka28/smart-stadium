@@ -1,23 +1,20 @@
 const zones = {
-  // Gates – moderate to high arrivals near event start
-  Gate1:  { id: "Gate1",  type: "gate", name: "Gate 1",  device_count: 320, density: "yellow" },
-  Gate2:  { id: "Gate2",  type: "gate", name: "Gate 2",  device_count: 280, density: "yellow" },
-  Gate3:  { id: "Gate3",  type: "gate", name: "Gate 3",  device_count: 410, density: "red"    },
-  Gate4:  { id: "Gate4",  type: "gate", name: "Gate 4",  device_count: 350, density: "yellow" },
-  Gate5:  { id: "Gate5",  type: "gate", name: "Gate 5",  device_count: 260, density: "yellow" },
-  Gate6:  { id: "Gate6",  type: "gate", name: "Gate 6",  device_count: 190, density: "green"  },
-  Gate7:  { id: "Gate7",  type: "gate", name: "Gate 7",  device_count: 220, density: "yellow" },
-  Gate8:  { id: "Gate8",  type: "gate", name: "Gate 8",  device_count: 300, density: "yellow" },
-  Gate9:  { id: "Gate9",  type: "gate", name: "Gate 9",  device_count: 270, density: "yellow" },
-  Gate10: { id: "Gate10", type: "gate", name: "Gate 10", device_count: 180, density: "green"  },
+  Gate1: {id: "Gate1",  type: "gate", name: "Gate 1",  device_count: 410, density: "red"},
+  Gate2: { id: "Gate2",  type: "gate", name: "Gate 2",  device_count: 280, density: "yellow"},
+  Gate3: { id: "Gate3",  type: "gate", name: "Gate 3",  device_count: 190, density: "green"},
+  Gate4: { id: "Gate4",  type: "gate", name: "Gate 4",  device_count: 300, density: "yellow"},
+  Gate5: { id: "Gate5",  type: "gate", name: "Gate 5",  device_count: 260, density: "yellow"},
+  Gate6: { id: "Gate6",  type: "gate", name: "Gate 6",  device_count: 150, density: "green"},
+  Gate7: { id: "Gate7",  type: "gate", name: "Gate 7",  device_count: 220, density: "yellow"},
+  Gate8: { id: "Gate8",  type: "gate", name: "Gate 8",  device_count: 300, density: "yellow"},
+  Gate9: { id: "Gate9",  type: "gate", name: "Gate 9",  device_count: 180, density: "green"},
+  Gate10: { id: "Gate10", type: "gate", name: "Gate 10", device_count: 180, density: "green"},
 
-  // Concourse areas – heavier ongoing crowd
   ConcourseN: { id: "ConcourseN", type: "concourse", name: "Concourse North", device_count: 800, density: "yellow" },
   ConcourseE: { id: "ConcourseE", type: "concourse", name: "Concourse East",  device_count: 950, density: "red"    },
   ConcourseS: { id: "ConcourseS", type: "concourse", name: "Concourse South", device_count: 700, density: "yellow" },
   ConcourseW: { id: "ConcourseW", type: "concourse", name: "Concourse West",  device_count: 650, density: "yellow" },
 
-  // Parking lots – cars per minute at a busy time window
   LotA: {
     id: "LotA",
     type: "parking lot",
@@ -73,4 +70,4 @@ let weather = {
     storm_alert: "none"
 };
 
-module.exports = {zones, kpis, incidents, weather, };
+module.exports = {zones, kpis, incidents, weather, incidentTemplates};
