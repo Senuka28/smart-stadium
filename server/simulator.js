@@ -1,8 +1,47 @@
-const { zones, kpis, incidents, weather } = require("./data/state");
+const { zones, kpis, incidents, weather, incidentTemplates } = require("./data/state");
 
 function randomDelta(max = 10) {
   return Math.floor(Math.random() * (2 * max + 1)) - max;
 }
+
+let next_incident_id = 1;
+
+function maybeGenerateIncident() {
+  // Roll separately for each tier so info-level events show up more often
+  // than warnings, and warnings more often than critical
+  const roll = Math.random();
+  let severity;
+  if (roll < 0.03) severity = "critical";
+  else if (roll < 0.10) severity = "warning";
+  else if (roll < 0.20) severity = "info";
+  else return; // nothing happens this tick
+
+  const pool = incidentTemplates[severity];
+  const template = pool[Math.floor(Math.random() * pool.length)];
+
+  const zone_list = Object.values(zones);
+  const random_zone = zone_list[Math.floor(Math.random() * zone_list.length)];
+
+  incidents.push({
+    id: next_incident_id++,
+    severity,               // "critical" | "warning" | "info"
+    type: template.type,
+    icon: template.icon,
+    title: template.title,
+    zone_id: random_zone.id,
+    location: random_zone.name,
+    created_at: new Date().toISOString(),
+    status: "active",
+  });
+
+  if (incidents.length > 30) incidents.shift();
+
+  kpis.active_incidents = incidents.filter((i) => i.status === "active").length;
+  kpis.critical_incidents = incidents.filter(
+    (i) => i.status === "active" && i.severity === "critical"
+  ).length;
+}
+
 
 function simulatedZoneUpdates() {
   let stadium_total = 0;
