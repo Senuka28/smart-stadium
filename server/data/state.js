@@ -10,10 +10,10 @@ const zones = {
   Gate9: { id: "Gate9",  type: "gate", name: "Gate 9",  device_count: 180, density: "green"},
   Gate10: { id: "Gate10", type: "gate", name: "Gate 10", device_count: 180, density: "green"},
 
-  ConcourseN: { id: "ConcourseN", type: "concourse", name: "Concourse North", device_count: 800, density: "yellow" },
-  ConcourseE: { id: "ConcourseE", type: "concourse", name: "Concourse East",  device_count: 950, density: "red"    },
-  ConcourseS: { id: "ConcourseS", type: "concourse", name: "Concourse South", device_count: 700, density: "yellow" },
-  ConcourseW: { id: "ConcourseW", type: "concourse", name: "Concourse West",  device_count: 650, density: "yellow" },
+  ConcourseN: { id: "ConcourseN", type: "concourse", name: "Concourse North", device_count: 800, density: "yellow"},
+  ConcourseE: { id: "ConcourseE", type: "concourse", name: "Concourse East",  device_count: 950, density: "red"},
+  ConcourseS: { id: "ConcourseS", type: "concourse", name: "Concourse South", device_count: 700, density: "yellow"},
+  ConcourseW: { id: "ConcourseW", type: "concourse", name: "Concourse West",  device_count: 650, density: "yellow"},
 
   LotA: {
     id: "LotA",
