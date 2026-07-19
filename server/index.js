@@ -24,3 +24,33 @@ app.listen(PORT, () => {
   console.log(`Server listening on ${PORT}`);
   startSimulation();
 });
+
+app.post("/api/report-incident", (req, res) => {
+  const { zone_id, type, description } = req.body;
+
+  if (!zone_id || !type || !description) {
+    return res.status(400).json({ error: "zone_id, type, and description are required" });
+  }
+
+  const zone = zones[zone_id];
+
+  const newIncident = {
+    id: Date.now(),
+    severity: "warning",
+    type,
+    title: `Fan-reported: ${type}`,
+    description,
+    zone_id,
+    location: zone ? zone.name : zone_id,
+    created_at: new Date().toISOString(),
+    status: "active",
+    source: "fan_report"
+  };
+
+  incidents.push(newIncident);
+  if (incidents.length > 30) incidents.shift();
+
+  kpis.active_incidents = incidents.filter((i) => i.status === "active").length;
+
+  res.status(201).json(newIncident);
+});

@@ -1,20 +1,21 @@
 import { useState } from "react";
+import { LanguageProvider, useLanguage } from "../context/LanguageContext";
 import FanHome from "./fan/FanHome";
 import FanMap from "./fan/FanMap";
 import FanTickets from "./fan/FanTickets";
 import FanHelp from "./fan/FanHelp";
 import FanLanguage from "./fan/FanLanguage";
 
-const TABS = [
-  { id: "home", label: "Home", icon: "🏠" },
-  { id: "map", label: "Map", icon: "🗺️" },
-  { id: "tickets", label: "My Seat", icon: "🎟️" },
-  { id: "help", label: "Help", icon: "💬" },
-  { id: "language", label: "EN", icon: "🌐" }
-];
-
-export default function FanApp() {
+function FanAppInner() {
   const [tab, setTab] = useState("home");
+  const { t } = useLanguage();
+
+  const TABS = [
+    { id: "home", label: t("home"), icon: "🏠" },
+    { id: "map", label: t("map"), icon: "🗺️" },
+    { id: "tickets", label: t("tickets"), icon: "🎟️" },
+    { id: "help", label: t("help"), icon: "💬" }
+  ];
 
   const renderTab = () => {
     switch (tab) {
@@ -41,7 +42,6 @@ export default function FanApp() {
     >
       <div style={{ flex: 1, paddingBottom: 70 }}>{renderTab()}</div>
 
-      {/* Bottom tab bar */}
       <div
         style={{
           position: "fixed",
@@ -77,5 +77,13 @@ export default function FanApp() {
         ))}
       </div>
     </div>
+  );
+}
+
+export default function FanApp() {
+  return (
+    <LanguageProvider>
+      <FanAppInner />
+    </LanguageProvider>
   );
 }
