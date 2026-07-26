@@ -8,21 +8,21 @@ const STEPS = [
 ];
 
 function generateBarcodeLines() {
-  // Deterministic-looking fake barcode pattern
   const widths = [2, 4, 1, 3, 2, 5, 1, 2, 4, 3, 1, 2, 5, 2, 3, 1, 4, 2, 1, 3];
   return widths;
 }
 
 export default function FanTickets() {
   const [stage, setStage] = useState("intro"); // intro -> steps -> consent -> confirmed
+  const [locationConsent, setLocationConsent] = useState(false);
   const [dataConsent, setDataConsent] = useState(false);
   const [privacyConsent, setPrivacyConsent] = useState(false);
 
-  const canPurchase = dataConsent && privacyConsent;
+  const canPurchase = locationConsent && dataConsent && privacyConsent;
 
   const ticket = {
     seat: "Section 132, Row F, Seat 14",
-    gate: "Gate 3",
+    gate: "Gate C",
     event: "Championship Game",
     date: "Sat, Jul 25 · Gates Open 4:00 PM",
     ticketId: "WC-2026-84213-C"
@@ -155,15 +155,42 @@ export default function FanTickets() {
           }}
         >
           <div style={{ fontSize: 13, fontWeight: 600, marginBottom: 8 }}>
-            Stadium Sensor Data Collection
+            Location Data
           </div>
           <div style={{ fontSize: 12, color: "#9e9e9e", lineHeight: 1.5, marginBottom: 12 }}>
-            To improve crowd safety and wait times, the stadium uses sensors (cameras,
-            Wi-Fi/Bluetooth beacons, gate scanners) to collect anonymized movement and
-            occupancy data throughout your visit. This data helps manage congestion,
-            emergency response, and concession/restroom availability. Data is
-            aggregated and not linked to your personal identity outside of ticket
-            validation at gates.
+            While you're at the venue, the app collects your device's anonymized
+            location to help manage crowd safety and reduce wait times. This is
+            never linked to your name or ticket, and only used during the event.
+          </div>
+          <label style={{ display: "flex", alignItems: "flex-start", gap: 8, cursor: "pointer" }}>
+            <input
+              type="checkbox"
+              checked={locationConsent}
+              onChange={(e) => setLocationConsent(e.target.checked)}
+              style={{ marginTop: 2 }}
+            />
+            <span style={{ fontSize: 12 }}>
+              I consent to anonymized location tracking during this event
+            </span>
+          </label>
+        </div>
+
+        <div
+          style={{
+            background: "#141416",
+            borderRadius: 10,
+            padding: 16,
+            border: "1px solid #262626",
+            marginBottom: 12
+          }}
+        >
+          <div style={{ fontSize: 13, fontWeight: 600, marginBottom: 8 }}>
+            Stadium Sensor Data
+          </div>
+          <div style={{ fontSize: 12, color: "#9e9e9e", lineHeight: 1.5, marginBottom: 12 }}>
+            The stadium also uses cameras, beacons, and gate scanners to collect
+            anonymized crowd and occupancy data. This isn't linked to your
+            identity outside of ticket validation at gates.
           </div>
           <label style={{ display: "flex", alignItems: "flex-start", gap: 8, cursor: "pointer" }}>
             <input
@@ -173,7 +200,7 @@ export default function FanTickets() {
               style={{ marginTop: 2 }}
             />
             <span style={{ fontSize: 12 }}>
-              I consent to anonymized data collection via stadium sensors during this event
+              I consent to anonymized data collection via stadium sensors
             </span>
           </label>
         </div>
@@ -191,11 +218,11 @@ export default function FanTickets() {
             Privacy & Safety Policy
           </div>
           <div style={{ fontSize: 12, color: "#9e9e9e", lineHeight: 1.5, marginBottom: 12 }}>
-            By purchasing a ticket, you agree to the venue's terms of entry, including
-            bag policy, prohibited items, and emergency evacuation procedures. Your
-            ticket purchase information (name, seat, contact info) is used solely for
-            entry validation, incident response, and event communications, and will not
-            be sold to third parties.
+            By purchasing a ticket, you agree to the venue's terms of entry,
+            including bag policy, prohibited items, and emergency evacuation
+            procedures. Your ticket info is used only for entry validation,
+            incident response, and event communications, and is never sold to
+            third parties.
           </div>
           <label style={{ display: "flex", alignItems: "flex-start", gap: 8, cursor: "pointer" }}>
             <input
@@ -225,7 +252,7 @@ export default function FanTickets() {
             cursor: canPurchase ? "pointer" : "not-allowed"
           }}
         >
-          {canPurchase ? "Complete Purchase" : "Agree to Both to Continue"}
+          {canPurchase ? "Complete Purchase" : "Agree to All Three to Continue"}
         </button>
       </div>
     );
@@ -317,6 +344,7 @@ export default function FanTickets() {
       <button
         onClick={() => {
           setStage("intro");
+          setLocationConsent(false);
           setDataConsent(false);
           setPrivacyConsent(false);
         }}
