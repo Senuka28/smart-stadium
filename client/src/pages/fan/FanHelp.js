@@ -1,7 +1,7 @@
 import { useState } from "react";
 import { useLanguage } from "../../context/LanguageContext";
 
-const API_BASE = "http://localhost:4000/api";
+const API_BASE = process.env.REACT_APP_API_BASE || "http://localhost:4000/api";;
 
 const LANGUAGES = [
   { code: "en", label: "English", flag: "🇺🇸" },
